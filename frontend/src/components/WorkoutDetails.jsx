@@ -1,8 +1,10 @@
 import { useWorkoutContext } from '../hooks/useWorkoutsContext';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useNavigate } from 'react-router-dom';
 
 const WorkoutDetails = ({ workout }) => {
   const { dispatch } = useWorkoutContext();
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     const res = await fetch(`/api/workouts/${workout._id}`, {
@@ -27,9 +29,14 @@ const WorkoutDetails = ({ workout }) => {
         {workout.reps}
       </p>
       <p>{formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}</p>
-      <span className='material-symbols-outlined' onClick={handleDelete}>
-        Delete
-      </span>
+      <div className='actions'>
+        <span className='material-symbols-outlined' onClick={() => navigate(`/edit/${workout._id}`)}>
+          Edit
+        </span>
+        <span className='material-symbols-outlined delete_btn' onClick={handleDelete}>
+          Delete
+        </span>
+      </div>
     </div>
   );
 };
