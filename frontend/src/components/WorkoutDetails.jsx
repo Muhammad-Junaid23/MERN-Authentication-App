@@ -1,14 +1,23 @@
-import { useWorkoutContext } from '../hooks/useWorkoutsContext';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const WorkoutDetails = ({ workout }) => {
-  const { dispatch } = useWorkoutContext();
+  const { dispatch } = useWorkoutsContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
 
   const handleDelete = async () => {
+    if (!user) {
+      return;
+    }
+
     const res = await fetch(`/api/workouts/${workout._id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     const data = await res.json();
 

@@ -1,7 +1,8 @@
-const express = require('express');
-const router = require('./routes/workouts');
-const mongoose = require('mongoose');
 require('dotenv').config();
+const express = require('express');
+const workoutRoutes = require('./routes/workouts');
+const userRoutes = require('./routes/users');
+const mongoose = require('mongoose');
 
 // express app
 const app = express();
@@ -14,7 +15,8 @@ app.use((req, res, next) => {
 });
 
 //routes
-app.use('/api/workouts', router);
+app.use('/api/workouts', workoutRoutes);
+app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT;
 // connection to database

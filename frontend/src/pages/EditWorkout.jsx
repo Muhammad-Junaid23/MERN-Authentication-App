@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useWorkoutContext } from '../hooks/useWorkoutsContext';
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 
 const EditWorkout = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { dispatch } = useWorkoutContext();
+  const { dispatch } = useWorkoutsContext();
 
   const [formData, setFormData] = useState({ title: '', load: '', reps: '' });
   const [error, setError] = useState('');
